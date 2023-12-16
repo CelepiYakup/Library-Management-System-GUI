@@ -42,7 +42,7 @@ class Main(object):
         
         social_links = [
             ("Github by Yakup Celepi", "https://github.com/CelepiYakup"),
-            ("Github by Yağmur Çelik", "https://github.com/your_username"),
+            ("Github by Yağmur Çelik", "https://github.com/your_username")
             
             
         ]
@@ -57,7 +57,7 @@ class Main(object):
                 webbrowser.open(url)
             
             self.social_img=PhotoImage(file='images/github_50.png')
-            
+
 
         #search bar creation 
 
