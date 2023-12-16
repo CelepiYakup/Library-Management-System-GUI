@@ -36,6 +36,29 @@ class Main(object):
         centerRight = Frame(centerFrame, width=450, height=700, bg='#FFFFFF', relief=SUNKEN, borderwidth=2)
         centerRight.pack()
 
+        #Bottom created by us
+
+
+        
+        social_links = [
+            ("Github by Yakup Celepi", "https://github.com/CelepiYakup"),
+            ("Github by Yağmur Çelik", "https://github.com/your_username"),
+            
+            
+        ]
+
+        for social, link in social_links:
+            label = Label(bottomFrame, text=social, fg='blue', cursor='hand2', font=("Times New Roman", 12, "bold"))
+            label.bind("<Button-1>", lambda event, url=link: self.open_url(url))
+            label.pack(side=LEFT, padx=10)
+
+            def open_url(self, url):
+                import webbrowser
+                webbrowser.open(url)
+            
+            self.social_img=PhotoImage(file='images/github_50.png')
+            
+
         #search bar creation 
 
         search_bar = LabelFrame(centerRight, width=450, height=250, text='Search to book', bg='#9bc9ff', font=("Times New Roman", 12,"bold"))
