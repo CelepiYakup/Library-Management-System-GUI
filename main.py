@@ -1,4 +1,12 @@
 from tkinter import *
+from tabs import Tabs
+import addBook
+import sqlite3
+
+#connection from sqlite3 db
+
+con = sqlite3.connect('LMS.db')
+cur = con.cursor()
 
 class Main(object):
     def __init__(self, master):
@@ -33,13 +41,10 @@ class Main(object):
         centerLeft = Frame(centerFrame, width=1000, height=700, bg='#212121', relief=SUNKEN, borderwidth=2)
         centerLeft.pack(side=LEFT)
 
-        centerRight = Frame(centerFrame, width=450, height=700, bg='#FFFFFF', relief=SUNKEN, borderwidth=2)
+        centerRight = Frame(centerFrame, width=440, height=700, bg='#FFFFFF', relief=SUNKEN, borderwidth=2)
         centerRight.pack()
-
         #Bottom created by us
 
-
-        
         social_links = [
             ("Github by Yakup Celepi", "https://github.com/CelepiYakup"),
             ("Github by Yağmur Çelik", "https://github.com/your_username")
@@ -119,6 +124,7 @@ class Main(object):
         #book button and image 
         self.iconbook=PhotoImage(file='images/add_book50.png')
         self.btnbook= Button(topFrame,text='Add a book', image=self.iconbook,compound=LEFT,
+                             command=self.addBook,
                              highlightthickness=0,
                              highlightbackground='#212121',
                              highlightcolor='blue',
@@ -130,14 +136,14 @@ class Main(object):
 
         self.iconmember=PhotoImage(file='images/member_50.png')
         self.btnmember=Button(topFrame,text='Add a member', image=self.iconmember,compound=LEFT,
+                             command=self.addBook,
                              highlightthickness=0,
                              highlightbackground='#212121',
                              highlightcolor='blue',
                              border=0,
-                             cursor='hand2', font=("Times New Roman", 12,"bold"))
+                             cursor='hand2',font=("Times New Roman", 12,"bold"))
         self.btnmember.pack(side=LEFT,padx=5)
 
-       
        
         #borrow book 
 
@@ -151,6 +157,13 @@ class Main(object):
                              cursor='hand2', font=("Times New Roman", 12,"bold"))
         self.btnborrow.pack(side=LEFT,padx=5)
 
+        
+        # Creating an instance of the Tabs class
+        self.tabs_frame = Tabs(centerLeft)
+        self.tabs_frame.pack(side=LEFT)
+
+    def addBook(self):
+        add = addBook.AddBook()
 
 if __name__ == "__main__":
     root = Tk()
