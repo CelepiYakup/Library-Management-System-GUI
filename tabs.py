@@ -2,8 +2,9 @@ from tkinter import *
 from tkinter import ttk, Frame, Listbox, Scrollbar, Label
 
 class Tabs(Frame):
-    def __init__(self, parent):
+    def __init__(self, parent, cur=None):
         super().__init__(parent)
+        self.cur = cur
         self.tabs = ttk.Notebook(self, width=900, height=660)
         self.tabs.pack()
         self.tab1_icon = PhotoImage(file='images/books32.png')
