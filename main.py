@@ -148,6 +148,7 @@ class Main(object):
         # Creating an instance of the Tabs class
         self.tabs_frame = Tabs(centerLeft, cur)
         self.tabs_frame.pack(side=LEFT)
+        
 
         # Functions
         self.displayBooks()
@@ -173,8 +174,10 @@ class Main(object):
             book_info = book.fetchall()
             print(book_info)
             
+            #Deploy the list details on tabs.py
+
             list_details = self.tabs_frame.list_details
-            list_details.delete(0, 'end')  # Move this line here
+            list_details.delete(0, 'end')  
             list_details.insert(0, "Book Name : " + book_info[0][1])
             list_details.insert(1, "Page : " + str(book_info[0][2]))  # Convert to string for the page integration
             list_details.insert(2, "Author Name : " + book_info[0][3])
@@ -186,7 +189,7 @@ class Main(object):
 
         self.tabs_frame.list_books.bind('<<ListboxSelect>>', bookInfo)
             
-
+    #Add a webbrowser url for social media contact
     def open_url(self, url):
         import webbrowser
         webbrowser.open(url)
