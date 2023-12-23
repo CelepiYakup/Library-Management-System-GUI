@@ -19,7 +19,7 @@ class Main(object):
         # Calculate X and Y offsets for center position
         x_offset = (screen_width - 1440) // 2
         y_offset = (screen_height - 850) // 2
-        master.geometry(f"1440x850+{x_offset}+{y_offset}")
+        master.geometry(f"1355x790+{x_offset}+{y_offset}")
 
         # Main frame
         mainFrame = Frame(self.master)
@@ -30,7 +30,7 @@ class Main(object):
         bottomFrame.pack(side=BOTTOM, fill=X)
 
         # Top frame
-        topFrame = Frame(mainFrame, width=1440, height=150, bg='#FA2521', relief=RIDGE, padx=20, borderwidth=2)
+        topFrame = Frame(mainFrame, width=1440, height=150, bg='#A9A9A9', relief=RIDGE, padx=5, borderwidth=2)
         topFrame.pack(side=TOP, fill=X)
 
         # Center frame
@@ -38,7 +38,7 @@ class Main(object):
         centerFrame.pack(side=TOP)
 
         # Creating center left and right frames
-        centerLeft = Frame(centerFrame, width=1000, height=700, bg='#212121', relief=SUNKEN, borderwidth=2)
+        centerLeft = Frame(centerFrame, width=1000, height=700, bg='#A9A9A9', relief=SUNKEN, borderwidth=2)
         centerLeft.pack(side=LEFT)
 
         centerRight = Frame(centerFrame, width=440, height=700, bg='#FFFFFF', relief=SUNKEN, borderwidth=2)
@@ -106,7 +106,10 @@ class Main(object):
 
         bar_img = Frame(centerRight, width=450, height=250)
         bar_img.pack(fill=BOTH)
-        self.title_right = Label(bar_img, text='SEN4017 LIBRARY MANAGEMENT SYSTEM',
+
+        #Title and img from tabs.py
+
+        self.title_right = Label(bar_img, text='SEN4017 LIBRARY MANAGEMENT SYSTEM',fg='orange',
                                  font=("Times New Roman", 16, "bold"))
         self.title_right.grid(row=0)
         self.library_image = PhotoImage(file='images/LibraryimgBau.png')

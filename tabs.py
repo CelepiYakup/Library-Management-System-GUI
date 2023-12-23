@@ -17,7 +17,7 @@ class Tabs(Frame):
         # Listed books tabs
         self.list_books_frame = Frame(self.tab1)
         self.list_books_frame.grid(row=0, column=0, padx=(10, 0), pady=10, sticky='n')
-        self.list_books = Listbox(self.list_books_frame, width=50, height=35, bd=5, font=("Times New Roman", 12, "bold"), cursor='hand2')
+        self.list_books = Listbox(self.list_books_frame, width=50, height=35, bd=5, font=("Times New Roman", 12, "bold"), cursor='hand2',bg='#A9A9A9')
         self.list_books.pack(side='left', fill='both')
         sb = Scrollbar(self.list_books_frame, orient='vertical')
         sb.config(command=self.list_books.yview)
@@ -27,7 +27,7 @@ class Tabs(Frame):
         # List details
         self.list_details_frame = Frame(self.tab1)
         self.list_details_frame.grid(row=0, column=1, padx=(10, 0), pady=10, sticky='nsew')
-        self.list_details = Listbox(self.list_details_frame, width=80, height=40, bd=5, font=("Times New Roman", 12, "bold"), cursor='hand2')
+        self.list_details = Listbox(self.list_details_frame, width=80, height=40, bd=5, font=("Times New Roman", 12, "bold"), cursor='hand2',bg='#A9A9A9')
         self.list_details.pack(side='left', fill='both')
 
         # Statistic tabs
