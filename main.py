@@ -1,8 +1,11 @@
 from tkinter import *
 from tabs import Tabs
-import addBook, addMember
+import addBook, addMember,BorrowBook
 import sqlite3
-from BorrowBook import BorrowBook
+from BorrowBookWindow import BorrowBook
+
+
+
 
 # connection from sqlite3 db
 con = sqlite3.connect('LMS.db')
@@ -146,7 +149,8 @@ class Main(object):
 
         # Borrow book
         self.iconborrow = PhotoImage(file='images/borrow_50.png')
-        self.btnborrow = Button(topFrame, text='Borrow a book', image=self.iconborrow, compound=LEFT,
+        self.btnborrow = Button(topFrame, text='Borrow a book', image=self.iconborrow, command=self.BorrowAbook,
+                                compound=LEFT,
                                 highlightthickness=0,
                                 highlightbackground='#212121',
                                 highlightcolor='blue',
@@ -199,24 +203,30 @@ class Main(object):
             count += 1
 
         def bookInfo(evt):
-            value = str(self.tabs_frame.list_books.get(self.tabs_frame.list_books.curselection()))
-            id = value.split('-')[0]
-            book = cur.execute("SELECT * FROM books WHERE books_id=?", (id,))
-            book_info = book.fetchall()
-            print(book_info)
-            
-            #Deploy the list details on tabs.py
+            selected_books = self.tabs_frame.list_books.curselection()
+            book_info = []  # Initialize with an empty list
 
+            if selected_books:
+                value = str(self.tabs_frame.list_books.get(selected_books))
+                id = value.split('-')[0]
+                book = cur.execute("SELECT * FROM books WHERE books_id=?", (id,))
+                book_info = book.fetchall()
+                print(book_info)
+
+            # Deploy the list details on tabs.py
             list_details = self.tabs_frame.list_details
-            list_details.delete(0, 'end')  
-            list_details.insert(0, "Book Name : " + book_info[0][1])
-            list_details.insert(1, "Page : " + str(book_info[0][2]))  # Convert to string for the page integration
-            list_details.insert(2, "Author Name : " + book_info[0][3])
-            
-            if book_info[0][4] == 0:
-                list_details.insert(4, "Status : Available")
-            else:
-                list_details.insert(4, "Status : Not Available")
+            list_details.delete(0, 'end')
+
+            if book_info:
+                list_details.insert(0, "Book Name : " + book_info[0][1])
+                list_details.insert(1, "Page : " + str(book_info[0][2]))
+                list_details.insert(2, "Author Name : " + book_info[0][3])
+
+                if book_info[0][4] == 0:
+                    list_details.insert(4, "Status : Available")
+                else:
+                    list_details.insert(4, "Status : Not Available")
+
 
 
 
@@ -228,9 +238,8 @@ class Main(object):
 
     def doubleClick(self, evt):
         value = str(self.tabs_frame.list_books.get(self.tabs_frame.list_books.curselection()))
-        print(value)
-        id_given = value.split('-')[0]
-        book_give = BorrowBook()
+        given_id = value.split('-')[0]
+        give_book = BorrowBook(self.master, con, cur, given_id)
 
         #searching book function
 
@@ -277,6 +286,11 @@ class Main(object):
                 count += 1
             
         #Add a webbrowser url for social media contact
+    
+
+    def BorrowAbook(self):
+        borrow_book = BorrowBook.BorrowBook()
+
     def open_url(self, url):
         import webbrowser
         webbrowser.open(url)

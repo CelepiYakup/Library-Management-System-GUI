@@ -5,6 +5,7 @@ class Tabs(Frame):
     def __init__(self, parent, cur=None):
         super().__init__(parent)
         self.cur = cur
+        self.given_id = None
         self.tabs = ttk.Notebook(self, width=900, height=660)
         self.tabs.pack()
         self.tab1_icon = PhotoImage(file='images/books32.png')
