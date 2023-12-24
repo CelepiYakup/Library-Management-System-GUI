@@ -84,14 +84,18 @@ class Main(object):
             pady=5)
 
         self.btn_search = Button(search_bar, text='Search', font=("Times New Roman", 12, "bold"), bg='#fcc324',
-                                 fg="white", cursor='hand2')
+                                 fg="white", cursor='hand2', command=self.searchBooks)
         self.btn_search.grid(row=0, column=4, padx=5, pady=10)
 
         # List creation
-        list_bar = LabelFrame(centerRight, width=450, height=250, text='List Box', bg='#fcc324',
+        list_bar = LabelFrame(centerRight, 
+                              width=450, 
+                              height=250, 
+                              text='List Box', 
+                              bg='#fcc324',
                               font=("Times New Roman", 12, "bold"))
         list_bar.pack(fill=BOTH)
-        lbl_list = Label(list_bar, text='Short By', font=("Times New Roman", 16, "bold"), fg='white', bg='#fcc324')
+        lbl_list = Label(list_bar, text='Sort By', font=("Times New Roman", 16, "bold"), fg='white', bg='#fcc324')
         lbl_list.grid(row=0, column=2)
         self.listChoice = IntVar()
         rb1 = Radiobutton(list_bar, text='All Books', var=self.listChoice, value=1, bg='#fcc324')
@@ -101,7 +105,7 @@ class Main(object):
         rb2.grid(row=1, column=1)
         rb3.grid(row=1, column=2)
         btn_list = Button(list_bar, text='List Books', bg='#2488ff', fg='white',
-                          font=("Times New Roman", 12, "bold"), cursor='hand2')
+                          font=("Times New Roman", 12, "bold"), command=self.listBooks, cursor='hand2')
         btn_list.grid(row=1, column=3, padx=20, pady=5)
 
         bar_img = Frame(centerRight, width=450, height=250)
@@ -191,8 +195,52 @@ class Main(object):
                 list_details.insert(4, "Status : Not Available")
 
         self.tabs_frame.list_books.bind('<<ListboxSelect>>', bookInfo)
+
+        #searching book function
+
+    def searchBooks(self):
+        value = self.ent_search.get()
+        search = cur.execute("SELECT * FROM books WHERE book_name LIKE ? ", ('%'+value+'%',)).fetchall()
+        print(search)
+        self.tabs_frame.list_books.delete(0, END)
+
+        count = 0
+        for book in search:
+           
+            self.tabs_frame.list_books.insert(count, str(book[0]) + "-" + book[1])
+            count += 1
+    #Listing  sort function  
+    def listBooks(self):
+        value = self.listChoice.get()
+        if value == 1:
+            allbooks= cur.execute("SELECT * FROM books").fetchall()
+            print(allbooks)
+            self.tabs_frame.list_books.delete(0,END)
+
+            count=0
+            for book in allbooks:
+                self.tabs_frame.list_books.insert(count, str(book[0]) + "-" + book[1])
+                count +=1
+        
+        elif value == 2:
+            in_library_books = cur.execute("SELECT * FROM books WHERE book_status = ?", (0,)).fetchall()
+            self.tabs_frame.list_books.delete(0,END)
+            print(in_library_books)
+            count = 0
+            for book in in_library_books:
+                self.tabs_frame.list_books.insert(count,str(book[0]) + "-" + book[1])
+                count += 1
+        else:
+            borrowed_books= cur.execute("SELECT * FROM books WHERE book_status = ?", (1,)).fetchall()
+            print(borrowed_books)
+            self.tabs_frame.list_books.delete(0,END)
+
+            count = 0
+            for book in borrowed_books:
+                self.tabs_frame.list_books.insert(count, str(book[0]) + "-" + book[1])
+                count += 1
             
-    #Add a webbrowser url for social media contact
+        #Add a webbrowser url for social media contact
     def open_url(self, url):
         import webbrowser
         webbrowser.open(url)
