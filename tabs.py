@@ -35,5 +35,5 @@ class Tabs(Frame):
         self.lbl_book_number.grid(row=0)
         self.lbl_member_number = Label(self.tab2, text="", pady=20, font=("Times New Roman", 12, "bold"))
         self.lbl_member_number.grid(row=1, sticky='w')
-        self.lbl_taken_number = Label(self.tab2, text="", pady=20, font=("Times New Roman", 12, "bold"))
-        self.lbl_taken_number.grid(row=2, sticky='w')
+        self.lbl_borrowed_book = Label(self.tab2, text="", pady=20, font=("Times New Roman", 12, "bold"))
+        self.lbl_borrowed_book.grid(row=2, sticky='w')

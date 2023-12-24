@@ -2,6 +2,7 @@ from tkinter import *
 from tabs import Tabs
 import addBook, addMember
 import sqlite3
+from BorrowBook import BorrowBook
 
 # connection from sqlite3 db
 con = sqlite3.connect('LMS.db')
@@ -16,28 +17,28 @@ class Main(object):
         screen_width = master.winfo_screenwidth()
         screen_height = master.winfo_screenheight()
 
-        # Calculate X and Y offsets for center position
+        # Calculate X and Y offsets for center position main window
         x_offset = (screen_width - 1440) // 2
         y_offset = (screen_height - 850) // 2
         master.geometry(f"1355x790+{x_offset}+{y_offset}")
 
-        # Main frame
+        # Main frame creation
         mainFrame = Frame(self.master)
         mainFrame.pack()
 
-        # Bottom frame
+        # Bottom frame creation
         bottomFrame = Frame(mainFrame, width=1440, height=150, bg='orange2', relief=SUNKEN, padx=20, borderwidth=2)
         bottomFrame.pack(side=BOTTOM, fill=X)
 
-        # Top frame
+        # Top frame creation
         topFrame = Frame(mainFrame, width=1440, height=150, bg='#A9A9A9', relief=RIDGE, padx=5, borderwidth=2)
         topFrame.pack(side=TOP, fill=X)
 
-        # Center frame
+        # Center frame creation
         centerFrame = Frame(mainFrame, width=1440, bg='#FFFFFF', relief=RIDGE, height=700)
         centerFrame.pack(side=TOP)
 
-        # Creating center left and right frames
+        # Creating center left and right frames creation
         centerLeft = Frame(centerFrame, width=1000, height=700, bg='#A9A9A9', relief=SUNKEN, borderwidth=2)
         centerLeft.pack(side=LEFT)
 
@@ -55,6 +56,7 @@ class Main(object):
             label.bind("<Button-1>", lambda event, url=link: self.open_url(url))
             label.pack(side=LEFT, padx=10)
 
+    
         # Search bar creation
         search_bar = LabelFrame(centerRight, width=450, height=250, text='Search to book', bg='#9bc9ff',
                                 font=("Times New Roman", 12, "bold"))
@@ -155,20 +157,42 @@ class Main(object):
         # Creating an instance of the Tabs class
         self.tabs_frame = Tabs(centerLeft, cur)
         self.tabs_frame.pack(side=LEFT)
-        
+
 
         # Functions
+        
         self.displayBooks()
+        self.Statistic()
+        
+
+    def Statistic(self ,evt=None):
+        book_counter=cur.execute("SELECT count (books_id) FROM books").fetchall()
+        member_counter=cur.execute("SELECT count (members_id) FROM members").fetchall()
+        borrowed_books = cur.execute("SELECT count(book_status) FROM books WHERE book_status =1").fetchall()
+        print(book_counter)
+    
+        self.tabs_frame.lbl_book_number.config(text='Totally : ' + str(book_counter[0][0]) + ' books in library')
+        self.tabs_frame.lbl_member_number.config(text='Total of the member : ' + str(member_counter[0][0]))
+        self.tabs_frame.lbl_borrowed_book.config(text='Total Borrowed books : ' + str(borrowed_books[0][0]))
+        self.displayBooks()
+
+        
 
     def addBook(self):
         add = addBook.AddBook()
+        
 
     def addMember(self):
         member = addMember.AddMember()
 
+
+        
     def displayBooks(self):
         books = cur.execute("SELECT * FROM books").fetchall()
         count = 0
+
+        self.tabs_frame.list_books.delete(0,END)
+
         for book in books:
             print(book)
             self.tabs_frame.list_books.insert(count, str(book[0]) + "-" + book[1])
@@ -194,7 +218,19 @@ class Main(object):
             else:
                 list_details.insert(4, "Status : Not Available")
 
+
+
         self.tabs_frame.list_books.bind('<<ListboxSelect>>', bookInfo)
+        self.tabs_frame.tabs.bind('<<NotebookTabChanged>>', self.Statistic)
+        self.tabs_frame.list_books.bind('<Double-Button-1>',self.doubleClick)
+
+        #Borrow book function
+
+    def doubleClick(self, evt):
+        value = str(self.tabs_frame.list_books.get(self.tabs_frame.list_books.curselection()))
+        print(value)
+        id_given = value.split('-')[0]
+        book_give = BorrowBook()
 
         #searching book function
 
