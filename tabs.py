@@ -12,7 +12,7 @@ class Tabs(Frame):
         self.tab2_icon = PhotoImage(file='images/member32.png')
         self.tab1 = ttk.Frame(self.tabs)
         self.tab2 = ttk.Frame(self.tabs)
-        self.tabs.add(self.tab1, text='Library Management', image=self.tab1_icon, compound='left')
+        self.tabs.add(self.tab1,  text='Library Management', image=self.tab1_icon, compound='left',)
         self.tabs.add(self.tab2, text='Statistics', image=self.tab2_icon, compound='left')
 
         # Listed books tabs

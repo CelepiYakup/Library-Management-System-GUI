@@ -33,7 +33,7 @@ class BorrowBook(Toplevel):
         self.top_image = PhotoImage(file='images/member_50.png')
         top_image_lbl = Label(self.topFrame, image=self.top_image, bg='white', cursor='hand2', relief='sunken')
         top_image_lbl.place(x=50, y=30)
-        heading = Label(self.topFrame, text='   Add a Member', font=("Times New Roman", 22, "bold"), fg='#003f8a',
+        heading = Label(self.topFrame, text='   Borrow a book', font=("Times New Roman", 22, "bold"), fg='#003f8a',
                         bg='white',)
         heading.place(x=200, y=35)
 
