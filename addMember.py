@@ -5,8 +5,8 @@ con =sqlite3.connect('LMS.db')
 cur=con.cursor()
 
 class AddMember(Toplevel):
-    def __init__(self):
-        Toplevel.__init__(self)
+    def _init_(self):
+        Toplevel._init_(self)
         self.geometry("650x750+550+200")
         self.title("Add Member")
         self.resizable(False, False)
@@ -29,7 +29,6 @@ class AddMember(Toplevel):
                          bg='#fcc324')
         lbl_name.place(x=40, y=40)
         self.ent_name = Entry(self.bottomFrame, width=30, bd=4)
-        self.ent_name.insert(0, 'Enter a book name')
         self.ent_name.place(x=150, y=45)
 
         # Entries for member surname
@@ -37,14 +36,12 @@ class AddMember(Toplevel):
                            bg='#fcc324')
         lbl_surname.place(x=40, y=80)
         self.ent_surname = Entry(self.bottomFrame, width=30, bd=4)
-        self.ent_surname.insert(0, 'Enter an surname')
         self.ent_surname.place(x=150, y=85)
 
         lbl_phone = Label(self.bottomFrame, text='Phone:', font=("Times New Roman", 15, "bold"), fg='black',
                            bg='#fcc324')
         lbl_phone.place(x=40, y=120)
         self.ent_phone = Entry(self.bottomFrame, width=30, bd=4)
-        self.ent_phone.insert(0, 'Enter an phone')
         self.ent_phone.place(x=150, y=125)
 
        

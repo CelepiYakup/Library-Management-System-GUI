@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 from tabs import Tabs
 import addBook, addMember,BorrowBook
 import sqlite3
@@ -289,7 +290,14 @@ class Main(object):
     
 
     def BorrowAbook(self):
-        borrow_book = BorrowBook.BorrowBook()
+        selected_books = self.tabs_frame.list_books.curselection()
+
+        if selected_books:
+           value = str(self.tabs_frame.list_books.get(selected_books))
+           given_id = value.split('-')[0]
+           give_book = BorrowBook(self.master, con, cur, given_id)
+        else:
+           messagebox.showwarning("Warning", "Please select a book to borrow.")
 
     def open_url(self, url):
         import webbrowser

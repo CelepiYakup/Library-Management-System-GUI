@@ -5,8 +5,8 @@ con =sqlite3.connect('LMS.db')
 cur=con.cursor()
 
 class AddBook(Toplevel):
-    def __init__(self):
-        Toplevel.__init__(self)
+    def _init_(self):
+        Toplevel._init_(self)
         self.geometry("650x750+550+200")
         self.title("Add book")
         self.resizable(False, False)
@@ -29,7 +29,6 @@ class AddBook(Toplevel):
                          bg='#fcc324')
         lbl_name.place(x=40, y=40)
         self.ent_name = Entry(self.bottomFrame, width=30, bd=4)
-        self.ent_name.insert(0, 'Enter a book name')
         self.ent_name.place(x=150, y=45)
 
         # Entries for Author
@@ -37,7 +36,6 @@ class AddBook(Toplevel):
                            bg='#fcc324')
         lbl_author.place(x=40, y=80)
         self.ent_author = Entry(self.bottomFrame, width=30, bd=4)
-        self.ent_author.insert(0, 'Enter an Author')
         self.ent_author.place(x=150, y=85)
 
          # Entries for book page
@@ -45,7 +43,6 @@ class AddBook(Toplevel):
                          bg='#fcc324')
         lbl_page.place(x=40, y=120)
         self.ent_page = Entry(self.bottomFrame, width=30, bd=4)
-        self.ent_page.insert(0, 'Enter a book page')
         self.ent_page.place(x=150, y=125)
 
         button=Button(self.bottomFrame,text='Add Book', command=self.addBook, cursor='hand2')
