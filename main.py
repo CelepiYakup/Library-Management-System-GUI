@@ -5,9 +5,6 @@ import addBook, addMember,BorrowBook
 import sqlite3
 from BorrowBookWindow import BorrowBook
 
-
-
-
 # connection from sqlite3 db
 con = sqlite3.connect('LMS.db')
 cur = con.cursor()
@@ -298,6 +295,8 @@ class Main(object):
            give_book = BorrowBook(self.master, con, cur, given_id)
         else:
            messagebox.showwarning("Warning", "Please select a book to borrow.")
+
+
 
     def open_url(self, url):
         import webbrowser

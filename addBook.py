@@ -5,8 +5,8 @@ con =sqlite3.connect('LMS.db')
 cur=con.cursor()
 
 class AddBook(Toplevel):
-    def _init_(self):
-        Toplevel._init_(self)
+    def __init__(self):
+        Toplevel.__init__(self)
         self.geometry("650x750+550+200")
         self.title("Add book")
         self.resizable(False, False)
