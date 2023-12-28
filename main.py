@@ -4,7 +4,6 @@ from tabs import Tabs
 import addBook, addMember,BorrowBook
 import sqlite3
 from BorrowBookWindow import BorrowBook
-
 # connection from sqlite3 db
 con = sqlite3.connect('LMS.db')
 cur = con.cursor()
@@ -28,22 +27,22 @@ class Main(object):
         mainFrame.pack()
 
         # Bottom frame creation
-        bottomFrame = Frame(mainFrame, width=1440, height=150, bg='orange2', relief=SUNKEN, padx=20, borderwidth=2)
+        bottomFrame = Frame(mainFrame, width=1440, height=150, bg='#ADD8E6', relief=SUNKEN, padx=20, borderwidth=2)
         bottomFrame.pack(side=BOTTOM, fill=X)
 
         # Top frame creation
-        topFrame = Frame(mainFrame, width=1440, height=150, bg='#A9A9A9', relief=RIDGE, padx=5, borderwidth=2)
+        topFrame = Frame(mainFrame, width=1440, height=150, bg='#ADD8E6', relief=RIDGE, padx=5, borderwidth=2)
         topFrame.pack(side=TOP, fill=X)
 
         # Center frame creation
-        centerFrame = Frame(mainFrame, width=1440, bg='#FFFFFF', relief=RIDGE, height=700)
+        centerFrame = Frame(mainFrame, width=1440, bg='#ADD8E6', relief=RIDGE, height=700)
         centerFrame.pack(side=TOP)
 
         # Creating center left and right frames creation
-        centerLeft = Frame(centerFrame, width=1000, height=700, bg='#A9A9A9', relief=SUNKEN, borderwidth=2)
+        centerLeft = Frame(centerFrame, width=1000, height=700, bg='#ADD8E6', relief=SUNKEN, borderwidth=2)
         centerLeft.pack(side=LEFT)
 
-        centerRight = Frame(centerFrame, width=440, height=700, bg='#FFFFFF', relief=SUNKEN, borderwidth=2)
+        centerRight = Frame(centerFrame, width=440, height=700, bg='#ADD8E6', relief=SUNKEN, borderwidth=2)
         centerRight.pack()
 
         # Bottom created by us
@@ -59,7 +58,7 @@ class Main(object):
 
     
         # Search bar creation
-        search_bar = LabelFrame(centerRight, width=450, height=250, text='Search to book', bg='#9bc9ff',
+        search_bar = LabelFrame(centerRight, width=450, height=250, text='Search to book', bg='#ADD8E6',
                                 font=("Times New Roman", 12, "bold"))
         search_bar.pack(fill=BOTH)
 
@@ -68,8 +67,8 @@ class Main(object):
                                 relief=FLAT,
                                 text='Search: ',
                                 font=("Times New Roman", 12, "bold"),
-                                bg='#9bc9ff',
-                                fg='white',
+                                bg='#ADD8E6',
+                                fg='black',
                                 border=5)
         self.lbl_search.grid(row=0, column=0, padx=20, pady=10)
         # Entry Search box
@@ -86,8 +85,8 @@ class Main(object):
             padx=5,
             pady=5)
 
-        self.btn_search = Button(search_bar, text='Search', font=("Times New Roman", 12, "bold"), bg='#fcc324',
-                                 fg="white", cursor='hand2', command=self.searchBooks)
+        self.btn_search = Button(search_bar, text='Search', font=("Times New Roman", 12, "bold"), bg='white',
+                                 fg="black", cursor='hand2', command=self.searchBooks)
         self.btn_search.grid(row=0, column=4, padx=5, pady=10)
 
         # List creation
@@ -95,19 +94,19 @@ class Main(object):
                               width=450, 
                               height=250, 
                               text='List Box', 
-                              bg='#fcc324',
+                              bg='#ADD8E6',
                               font=("Times New Roman", 12, "bold"))
         list_bar.pack(fill=BOTH)
-        lbl_list = Label(list_bar, text='Sort By', font=("Times New Roman", 16, "bold"), fg='white', bg='#fcc324')
+        lbl_list = Label(list_bar, text='Sort By', font=("Times New Roman", 16, "bold"), fg='black', bg='#ADD8E6')
         lbl_list.grid(row=0, column=2)
         self.listChoice = IntVar()
-        rb1 = Radiobutton(list_bar, text='All Books', var=self.listChoice, value=1, bg='#fcc324')
-        rb2 = Radiobutton(list_bar, text='In Library', var=self.listChoice, value=2, bg='#fcc324')
-        rb3 = Radiobutton(list_bar, text='Borrowed Books', var=self.listChoice, value=3, bg='#fcc324')
+        rb1 = Radiobutton(list_bar, text='All Books', var=self.listChoice, value=1, bg='#ADD8E6')
+        rb2 = Radiobutton(list_bar, text='In Library', var=self.listChoice, value=2, bg='#ADD8E6')
+        rb3 = Radiobutton(list_bar, text='Borrowed Books', var=self.listChoice, value=3, bg='#ADD8E6')
         rb1.grid(row=1, column=0)
         rb2.grid(row=1, column=1)
         rb3.grid(row=1, column=2)
-        btn_list = Button(list_bar, text='List Books', bg='#2488ff', fg='white',
+        btn_list = Button(list_bar, text='List Books', bg='white', fg='black',
                           font=("Times New Roman", 12, "bold"), command=self.listBooks, cursor='hand2')
         btn_list.grid(row=1, column=3, padx=20, pady=5)
 
@@ -116,7 +115,7 @@ class Main(object):
 
         #Title and img from tabs.py
 
-        self.title_right = Label(bar_img, text='SEN4017 LIBRARY MANAGEMENT SYSTEM',fg='orange',
+        self.title_right = Label(bar_img, text='SEN4017 LIBRARY MANAGEMENT SYSTEM',fg='#003f8a',
                                  font=("Times New Roman", 16, "bold"))
         self.title_right.grid(row=0)
         self.library_image = PhotoImage(file='images/LibraryimgBau.png')
@@ -129,7 +128,7 @@ class Main(object):
                               command=self.addBook,
                               highlightthickness=0,
                               highlightbackground='#212121',
-                              highlightcolor='blue',
+                              highlightcolor='#ADD8E6',
                               border=0,
                               cursor='hand2', font=("Times New Roman", 12))
         self.btnbook.pack(side=LEFT, padx=5)

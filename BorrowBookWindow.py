@@ -9,8 +9,8 @@ class BorrowBook(Toplevel):
         self.cur = cur
         self.book_id = int(book_id)
 
-        self.geometry("650x750+550+200")
-        self.title("Borrow Book")
+        self.geometry("400x400+200+200")
+        self.title("Borrow a Book")
         self.resizable(False, False)
 
         self.setup_ui()
@@ -24,37 +24,37 @@ class BorrowBook(Toplevel):
         members = self.cur.execute(query2).fetchall()
         member_list = [f"{member[0]}-{member[1]}" for member in members]
 
-        self.topFrame = Frame(self, height=150, bg='white')
+        self.topFrame = Frame(self, height=150, bg='#ADD8E6')
         self.topFrame.pack(fill='x')
 
-        self.bottomFrame = Frame(self, height=600, bg='#fcc324')
+        self.bottomFrame = Frame(self, height=600, bg='#ADD8E6')
         self.bottomFrame.pack(fill='x')
 
         self.top_image = PhotoImage(file='images/member_50.png')
         top_image_lbl = Label(self.topFrame, image=self.top_image, bg='white', cursor='hand2', relief='sunken')
         top_image_lbl.place(x=50, y=30)
         heading = Label(self.topFrame, text='   Borrow a book', font=("Times New Roman", 22, "bold"), fg='#003f8a',
-                        bg='white',)
-        heading.place(x=200, y=35)
+                        bg='#ADD8E6',)
+        heading.place(x=150, y=35)
 
         # Entries for member name
         self.book_name = StringVar()
-        lbl_name = Label(self.bottomFrame, text='Book Name:', font=("Times New Roman", 15, "bold"), fg='black',
-                         bg='#fcc324')
-        lbl_name.place(x=40, y=40)
+        lbl_name = Label(self.bottomFrame, text='Book Name:', font=("Times New Roman", 15, "bold"), fg='#003f8a',
+                         bg='#ADD8E6')
+        lbl_name.place(x=40, y=10)
         self.combo_name = ttk.Combobox(self.bottomFrame, textvariable=self.book_name)
         self.combo_name['values'] = books_list
         self.combo_name.current(self.book_id - 1)
-        self.combo_name.place(x=180, y=45)
+        self.combo_name.place(x=175, y=10)
 
         # Entries for member surname
         self.member_name = StringVar()
-        lbl_surname = Label(self.bottomFrame, text='Member Name:', font=("Times New Roman", 15, "bold"), fg='black',
-                            bg='#fcc324')
-        lbl_surname.place(x=40, y=80)
+        lbl_surname = Label(self.bottomFrame, text='Member Name:', font=("Times New Roman", 15, "bold"), fg='#003f8a',
+                            bg='#ADD8E6')
+        lbl_surname.place(x=40, y=70)
         self.combo_member = ttk.Combobox(self.bottomFrame, textvariable=self.member_name)
         self.combo_member['values'] = member_list
-        self.combo_member.place(x=180, y=85)
+        self.combo_member.place(x=175, y=70)
 
         button = Button(self.bottomFrame, text='Borrow Book', command=self.borrow_book, cursor='hand2')
         button.place(x=242, y=110)
