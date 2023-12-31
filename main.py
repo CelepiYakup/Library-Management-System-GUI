@@ -282,7 +282,7 @@ class Main(object):
                 self.tabs_frame.list_books.insert(count, str(book[0]) + "-" + book[1])
                 count += 1
             
-        #Add a webbrowser url for social media contact
+        #Add a webbrowser url for social media contact using
     
 
     def BorrowAbook(self):
